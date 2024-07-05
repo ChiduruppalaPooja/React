@@ -27,7 +27,9 @@ export default function AssessmentsDashboard() {
 
 
     series.push(
+      
         {
+           
             data : temp
         }
     )

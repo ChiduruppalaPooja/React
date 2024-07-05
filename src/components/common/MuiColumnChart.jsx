@@ -14,7 +14,8 @@ const MuiColumnChart = ({
   primaryBarColor,
   secondarybarColor,
 }) => {
-  // console.log(series)
+  console.log('series',series)
+
   const theme = useTheme()
   const options = {
     chart: {
@@ -142,6 +143,7 @@ const MuiColumnChart = ({
       enabled: false,
     },
   }
+  console.log('options', options);
   return (
     <Chart
       options={options}
