@@ -1,6 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit'
 
-
+const selectedSubject = 0
 const recentAssessmentsData = []
 const categories = []
 const profile = {
@@ -24,7 +24,7 @@ const intialAsessmentsSliceData = {
     leaderBoardData,
     intialDashBoardData,
     subjects,
-    
+    selectedSubject
 }
 const dashboardSlice = createSlice({
     name: 'dashboard',
@@ -33,7 +33,6 @@ const dashboardSlice = createSlice({
 
         setDashBoardData(state, action) {
             state.intialDashBoardData = action.payload
-            console.log(state.intialDashBoardData)
             state.coursesData = action.payload.courses
             state.analyticsData = action.payload.analytics
             state.profile.name = action.payload.name
@@ -41,6 +40,10 @@ const dashboardSlice = createSlice({
             state.profile.profilePic = action.payload.profile_picture
             state.leaderBoardData = action.payload.leaderboard
             state.subjects = action.payload.recent_assessments.subjects
+            state.recentAssessmentsData = action.payload.recent_assessments
+        },
+        setSubject(state, action) {
+            state.selectedSubject = action.payload
         },
         
     }

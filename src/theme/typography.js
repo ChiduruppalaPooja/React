@@ -103,6 +103,16 @@ export function remToPx(value) {
       lineHeight: 22 / 14,
       fontSize: pxToRem(14),
     },
+    subtitle3: {
+      fontWeight: 500,
+      lineHeight: 22 / 14,
+      fontSize: pxToRem(14),
+    },
+    subtitle4: {
+      fontWeight: 500,
+      lineHeight: pxToRem(24),
+      fontSize: pxToRem(16),
+    },
     body1: {
       fontFamily:FONT_PRIMARY_REGULAR,
       lineHeight: pxToRem(12 * 1.6),
@@ -120,6 +130,12 @@ export function remToPx(value) {
       lineHeight: pxToRem(12 * 1.6),
       fontSize: pxToRem(12),
       fontWeight: fontWeightBold
+    },
+    bodys: {
+      fontFamily:FONT_PRIMARY_BOLD,
+      lineHeight: pxToRem(16),
+      fontSize: pxToRem(12),
+      fontWeight: 400
     },
     body4: {
       fontFamily:FONT_PRIMARY_REGULAR,
@@ -188,6 +204,13 @@ export function remToPx(value) {
       fontWeight: fontWeightBold
       
     },
+    caption7: {
+      fontFamily:FONT_PRIMARY_BOLD,
+      lineHeight:pxToRem(10 * 1.57),
+      fontSize: pxToRem(12),
+      fontWeight: 300
+      
+    },
     overline: {
       fontWeight: 700,
       lineHeight: 1.5,
@@ -200,6 +223,7 @@ export function remToPx(value) {
       fontSize: pxToRem(14),
       textTransform: 'capitalize',
     },
+    
   };
   
   export default typography;

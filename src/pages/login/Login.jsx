@@ -7,7 +7,7 @@ import LoginForm from "../../features/Login/Components/LoginForm";
 export default function Login() {
     return (
         <Grid container sx={{
-            borderRadius: 5,
+            
             background: (theme) => theme.palette.primary.main,
             minHeight: '100vh', 
             overflow: 'hidden' 

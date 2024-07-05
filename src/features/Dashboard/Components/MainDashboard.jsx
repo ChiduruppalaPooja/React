@@ -1,8 +1,8 @@
 import React from "react";
 import { Box, Stack } from "@mui/material";
-import TopNavigation from "./TopNavigation";
-import Content from "./Content";
-import AssessmentsDashboard from "./AssessmentsDashboard";
+import TopNavigation from "./TopNavigation/TopNavigation";
+import Content from "./Analytics/Content";
+import AssessmentsDashboard from "./RecentAssessments/AssessmentsDashboard";
 export default function MainDashboard() {
     return (
        

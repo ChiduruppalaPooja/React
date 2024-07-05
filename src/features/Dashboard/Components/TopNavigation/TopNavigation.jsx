@@ -1,7 +1,6 @@
 import React from "react";
 import { Stack, Typography, Box } from "@mui/material";
-import typography from "../../../theme/typography"
-
+import typography from "../../../../theme/typography";
 import { useSelector } from "react-redux";
 
 export default function TopNavigation() {
@@ -30,7 +29,7 @@ export default function TopNavigation() {
                     height: '50px',
                     borderRadius: '24px',
                     marginTop: '15px',
-                    marginRight: '40px',
+                    marginRight: '26px',
                     overflow: 'hidden',
                 }}
             >

@@ -1,6 +1,6 @@
 import React from "react";
-import CustomCard from "../../../components/common/CustomCard";
-import AssessmentDetailCard from "../../../components/common/AssessmentDetailCard";
+import CustomCard from "../../../../components/common/CustomCard";
+import AssessmentDetailCard from "../../../../components/common/AssessmentDetailCard";
 import { Stack, Typography, Box } from "@mui/material";
 import { useSelector } from "react-redux";
 
@@ -8,7 +8,7 @@ export default function Content() {
     const dashboardData = useSelector((state)=> state.dashboard.analyticsData);
     const dashboardDataKeys = Object.keys(dashboardData);
     const dashboardDataValues = Object.values(dashboardData);
-    console.log(dashboardData);
+    
 
     return (
         <>

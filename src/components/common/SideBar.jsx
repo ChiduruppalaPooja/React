@@ -28,7 +28,7 @@ export default function SideBar() {
     const handleLogout = () => {
         dispatch(authSliceActions.logout());
         const rememberMe = localStorage.getItem('rememberMe') === 'true';
-        console.log('Logout, rememberMe:', rememberMe);
+       
         if (!rememberMe) {
             localStorage.removeItem('username');
             localStorage.removeItem('password');

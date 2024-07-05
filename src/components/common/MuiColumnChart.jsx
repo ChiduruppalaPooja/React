@@ -1,6 +1,7 @@
 import React from 'react'
 import Chart from 'react-apexcharts'
 import { useTheme } from '@mui/material/styles'
+import typography, {  pxToRem } from '../../theme/typography'
 
 const MuiColumnChart = ({
   series,
@@ -36,7 +37,7 @@ const MuiColumnChart = ({
     },
     dataLabels: {
       enabled: true,
-      formatter: function(val) {
+      formatter: function (val) {
         return val + '%'
       },
       offsetY: -20,
@@ -51,18 +52,26 @@ const MuiColumnChart = ({
     xaxis: {
       title: {
         text: xaxisTitle,
+        style: {
+          color: '#637381',
+          fontFamily: typography.fontFamily,
+          fontSize: pxToRem(14),
+          fontStyle: 'normal',
+          fontWeight: '400',
+          lineHeight: '20px',
+        }
       },
       tickPlacement: 'on',
       categories: categories,
       lines: {
-        show: true,
+        show: false,
       },
       position: 'bottom',
       axisBorder: {
-        show: true,
+        show: false,
       },
       axisTicks: {
-        show: true,
+        show: false,
       },
       tooltip: {
         enabled: false,
@@ -88,18 +97,19 @@ const MuiColumnChart = ({
           cssClass: 'apexcharts-yaxis-title',
         },
       },
+      position: 'top',
       lines: {
         show: false,
       },
       axisBorder: {
-        show: true,
+        show: false,
       },
       axisTicks: {
-        show: true,
+        show: false,
       },
       labels: {
-        show: true,
-        formatter: function(val) {
+        show: false,
+        formatter: function (val) {
           return val
         },
         style: {
@@ -112,12 +122,16 @@ const MuiColumnChart = ({
       },
     },
     grid: {
-      show: false,
+      show: true,
+    },
+    legend: {
+      show: true,
+      customLegendItems: ['Attempted', 'UnAttempted']
     },
     colors: [
-      function({ value, seriesIndex, w, dataPointIndex }) {
+      function ({ value, seriesIndex, w, dataPointIndex }) {
         // console.log(value, seriesIndex, w, dataPointIndex)
-        if (dataPointIndex % 2 === 0) {
+        if (value !== 0) {
           return primaryBarColor
         } else {
           return secondarybarColor
@@ -135,6 +149,7 @@ const MuiColumnChart = ({
       type='bar'
       width={width}
       height={height}
+
     />
   )
 }

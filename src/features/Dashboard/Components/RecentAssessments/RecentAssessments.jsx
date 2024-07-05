@@ -1,10 +1,9 @@
 import React from "react";
 import { Box, Stack, Typography } from "@mui/material";
-import blueEllipse from "../../../assets/blueEllipse.svg";
-import Attempted from "../../../components/common/Attempted";
-import redEllipse from "../../../assets/redEllipse.svg";
+import blueEllipse from "../../../../assets/blueEllipse.svg";
+import Attempted from "../../../../components/common/Attempted";
+import redEllipse from "../../../../assets/redEllipse.svg";
 import SubjectDropdown from "./SubjectDropdown";
-
 export default function RecentAssessments() {
     return (
 
