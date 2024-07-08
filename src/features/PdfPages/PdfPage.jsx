@@ -2,8 +2,8 @@ import React, { useState } from "react";
 import { Stack, Box, Typography } from "@mui/material";
 import TopNavigation from "../../components/common/TopNavigation";
 import ArrowLeftIcon from "../../assets/arrowLeft";
-import { Document, Page } from "react-pdf";
-import { pdfjs } from 'react-pdf';
+// import { Document, Page } from "react-pdf";
+// import { pdfjs } from 'react-pdf';
 import { useNavigate } from "react-router";
 
 
@@ -50,18 +50,7 @@ function PdfPage({ pdfTitle, pdfUrl }) {
                 </Stack>
             </Stack>
             <Box marginLeft={'100px'} sx={{ marginTop: '1.31rem' }}>
-                <Document
-                    file={pdfUrl}
-                    onLoadSuccess={onDocumentLoadSuccess}
-                    onLoadError={(error) => console.error('Error loading PDF:', error)}
-                >
-                    <Page pageNumber={pageNumber} scale={scale} rotate={rotationAngle} />
-                </Document>
-                <Box sx={{ display: 'flex', justifyContent: 'center', gap: '16px', marginTop: '16px' }}>
-                    <button onClick={handleZoomOut}>Zoom Out</button>
-                    <button onClick={handleZoomIn}>Zoom In</button>
-                    <button onClick={handleRotation}>Rotate</button>
-                </Box>
+                
             </Box>
         </Stack>
     );
