@@ -17,6 +17,12 @@ export default function AssessmentsDashboard() {
     const categories = [];
     const series = [];
     const temp=[];
+    series.push( {
+        name: "series-1",
+        data: [30, 40, 45, 50, 49, 60, 70, 91]
+      })
+       
+      
 
     if (tests) {
         tests.forEach((item) => {
@@ -26,13 +32,11 @@ export default function AssessmentsDashboard() {
     }
 
 
-    series.push(
+    // series.push(
       
-        {
-           
-            data : temp
-        }
-    )
+    //     temp
+    // )
+   
 
 
     console.log("temp: ", temp);
@@ -61,14 +65,14 @@ export default function AssessmentsDashboard() {
                         Avg. performance
                     </Typography>
                     {console.log('before comp',series)}
-                    {/* <MuiColumnChart
+                    <MuiColumnChart
                         series={series}
                         categories={categories}
                         primaryBarColor={(theme) => theme.palette.primary.main}
                         secondarybarColor={(theme) => theme.palette.error.main}
                         xaxisTitle={xaxisTitle}
                         yaxisTitle={yaxisTitle}
-                    /> */}
+                    />
                 </Stack>
             </Stack>
             <Stack className="midblockRight" direction="column" justifyContent={"space-between"} gap={'30px'}>

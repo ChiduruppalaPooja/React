@@ -1,9 +1,9 @@
 import React, { useState } from "react";
-import { pxToRem } from "../../theme/typography";
+import typography, { pxToRem } from "../../theme/typography";
 import { Box, InputBase, Stack } from "@mui/material";
 
 
-export default function LoginTextBox({ value, onChange, passwordImg, visibleImg }) {
+export default function LoginTextBox({ value, onChange, passwordImg, visibleImg,errorMessage, loginClicked }) {
     const [passWordVisible, setPasswordVisibility] = useState(true);
     function handlePasswordVisibility() {
         setPasswordVisibility(!passWordVisible);
@@ -77,6 +77,19 @@ export default function LoginTextBox({ value, onChange, passwordImg, visibleImg 
 
                 }}
             ></Box>
+            {errorMessage && loginClicked && (
+                    <Box sx={{
+                        color: "red",
+                        fontFamily: typography.fontFamily,
+                        fontSize: pxToRem(14),
+                        fontStyle: "normal",
+                        fontWeight: 400,
+                        lineHeight: "normal",
+                       margin: '0'
+                    }}>
+                        {errorMessage}
+                    </Box>
+                )}
         </Box>
     );
 }

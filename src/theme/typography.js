@@ -113,6 +113,11 @@ export function remToPx(value) {
       lineHeight: pxToRem(24),
       fontSize: pxToRem(16),
     },
+    subtitle5: {
+      fontWeight: 600,
+      lineHeight: 'normal',
+      fontSize: pxToRem(16),
+    },
     body1: {
       fontFamily:FONT_PRIMARY_REGULAR,
       lineHeight: pxToRem(12 * 1.6),
@@ -210,6 +215,13 @@ export function remToPx(value) {
       fontSize: pxToRem(12),
       fontWeight: 300
       
+    },
+    h: {
+      fontFamily:FONT_PRIMARY_MEDIUM,
+      fontWeight: 600,
+      lineHeight: pxToRem(20 * 1.6),
+      fontSize: pxToRem(20),
+      ...responsiveFontSizes({ sm: 19, md: 20, lg: 20 }),
     },
     overline: {
       fontWeight: 700,
