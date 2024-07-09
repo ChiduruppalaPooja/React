@@ -10,10 +10,14 @@ import useFetch from "../CustomHooks/useFetch";
 export default function Dashboard() {
     const dispatch = useDispatch();
     const { data, loading, error } = useFetch('https://stagingstudentpython.edwisely.com/reactProject/dashboardData');
+    console.log('testdata',data);
+    const assessmentData = useFetch('https://stagingstudentpython.edwisely.com/reactProject/assessments');
+    
 
     useEffect(() => {
         if (data) {
             dispatch(dashboardSliceActions.setDashBoardData(data));
+            dispatch(dashboardSliceActions.setAssessmentsData(assessmentData));
         }
     }, [data, dispatch]);
 

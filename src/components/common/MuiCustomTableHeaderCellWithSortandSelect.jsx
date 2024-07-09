@@ -9,11 +9,8 @@ import {
   MenuItem,
   Checkbox,
 } from '@mui/material'
-import { useTheme } from '@mui/styles'
-import { ArrowDown } from '../../../../assets/Svg/ArrowDown'
-import { ArrowUp } from '../../../../assets/Svg/ArrowUp'
-import { DownArrow2 } from '../../../../assets/Svg/DownArrow2'
-
+// import { DownArrow2 } from '../../../../assets/Svg/DownArrow2'
+import ArrowUpIcon from './ArrowDown'
 const options = [
   { id: 1, value: 'Timeout' },
   { id: 2, value: 'Interrupted' },
@@ -33,7 +30,7 @@ const MuiCustomTableHeaderCellWithSortandSelect = ({
   selectHandler,
 }) => {
   const { submissionTypesToShowinStudentTable } = useSelector(
-    (state) => state.assessment
+    (state) => state.dashboard.assessmentsData
   )
   const [sortOrder, setSortOrder] = useState('asc')
   const [anchorEl, setAnchorEl] = React.useState(null)
@@ -55,7 +52,6 @@ const MuiCustomTableHeaderCellWithSortandSelect = ({
       setSortOrder('asc')
     }
   }
-  const theme = useTheme()
   return (
     <>
       <TableCell
@@ -65,8 +61,8 @@ const MuiCustomTableHeaderCellWithSortandSelect = ({
             index === 0
               ? '5px 0 0 5px'
               : index === arrayLength - 1
-              ? '0 5px 5px 0'
-              : '0',
+                ? '0 5px 5px 0'
+                : '0',
           border: 'none',
         }}
       >
@@ -79,7 +75,7 @@ const MuiCustomTableHeaderCellWithSortandSelect = ({
           <Typography
             variant='body2'
             sx={{
-              color: theme.palette.grey[500],
+              color: (theme) => theme.palette.grey[500],
               lineHeight: '1rem',
             }}
           >
@@ -92,9 +88,9 @@ const MuiCustomTableHeaderCellWithSortandSelect = ({
               onClick={changeSortOrder}
             >
               {sortOrder === 'asc' ? (
-                <ArrowUp fontsize='small' color={theme.palette.grey[500]} />
+                <ArrowUpIcon fontsize='small' color={(theme) => theme.palette.grey[500]} />
               ) : (
-                <ArrowDown fontsize='small' color={theme.palette.grey[500]} />
+                <ArrowUpIcon fontsize='small' color={(theme) => theme.palette.grey[500]} />
               )}
             </IconButton>
           ) : null}
@@ -105,7 +101,7 @@ const MuiCustomTableHeaderCellWithSortandSelect = ({
                 sx={{ padding: '0' }}
                 onClick={handleClick}
               >
-                <DownArrow2 color={theme.palette.grey[500]} />
+                <ArrowUpIcon color={(theme) => theme.palette.grey[500]} />
               </IconButton>
               <Menu
                 id='long-menu'
@@ -139,7 +135,7 @@ const MuiCustomTableHeaderCellWithSortandSelect = ({
                       />
                       <Typography
                         variant='body1'
-                        sx={{ color: theme.palette.grey[900] }}
+                        sx={{ color: (theme) => theme.palette.grey[900] }}
                       >
                         {option.value}
                       </Typography>
@@ -156,7 +152,7 @@ const MuiCustomTableHeaderCellWithSortandSelect = ({
                   <Typography
                     variant='body1'
                     sx={{
-                      color: theme.palette.info[700],
+                      color: (theme) => theme.palette.info[700],
                       fontWeight: 500,
                     }}
                   >

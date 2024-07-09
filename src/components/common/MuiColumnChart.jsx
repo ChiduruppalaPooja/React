@@ -1,7 +1,7 @@
-import React from 'react'
-import Chart from 'react-apexcharts'
-import { useTheme } from '@mui/material/styles'
-import typography, {  pxToRem } from '../../theme/typography'
+import React from 'react';
+import Chart from 'react-apexcharts';
+import { useTheme } from '@mui/material/styles';
+import typography, { pxToRem } from '../../theme/typography';
 
 const MuiColumnChart = ({
   series,
@@ -14,9 +14,7 @@ const MuiColumnChart = ({
   primaryBarColor,
   secondarybarColor,
 }) => {
-  
-
-  const theme = useTheme()
+  const theme = useTheme();
   const options = {
     chart: {
       type: 'bar',
@@ -24,13 +22,13 @@ const MuiColumnChart = ({
         left: 100,
       },
       toolbar: {
-        show: false, // Hide the toolbar
+        show: false,
       },
     },
     plotOptions: {
       bar: {
         dataLabels: {
-          position: 'top', // top, center, bottom
+          position: 'top',
         },
         barHeight: '70%',
         columnWidth: '20px',
@@ -39,15 +37,15 @@ const MuiColumnChart = ({
     dataLabels: {
       enabled: true,
       formatter: function (val) {
-        return val + '%'
+        return val + '%';
       },
       offsetY: -20,
       style: {
         fontSize: '10px',
-        colors: [daataLabelsColor],
         fontFamily: 'Axiforma-SemiBold, Arial, sans-serif',
         fontWeight: 500,
         cssClass: 'apexcharts-xaxis-label',
+        colors: series[0].data.map(value => value !== 0 ? daataLabelsColor : secondarybarColor),
       },
     },
     xaxis: {
@@ -60,7 +58,7 @@ const MuiColumnChart = ({
           fontStyle: 'normal',
           fontWeight: '400',
           lineHeight: '20px',
-        }
+        },
       },
       tickPlacement: 'on',
       categories: categories,
@@ -111,7 +109,8 @@ const MuiColumnChart = ({
       labels: {
         show: false,
         formatter: function (val) {
-          return val
+          console.log('value', val);
+          return val;
         },
         style: {
           colors: theme.palette.grey[500],
@@ -127,33 +126,28 @@ const MuiColumnChart = ({
     },
     legend: {
       show: true,
-      customLegendItems: ['Attempted', 'UnAttempted']
+      customLegendItems: ['Attempted', 'UnAttempted'],
     },
     colors: [
-      function ({ value, seriesIndex, w, dataPointIndex }) {
-        // console.log(value, seriesIndex, w, dataPointIndex)
-        if (value !== 0) {
-          return primaryBarColor
-        } else {
-          return secondarybarColor
-        }
+      function ({ value }) {
+        return value !== 0 ? primaryBarColor : secondarybarColor;
       },
     ],
     tooltip: {
       enabled: false,
     },
-  }
-  console.log('options', options);
+  };
+  
   return (
+    
     <Chart
       options={options}
       series={series}
-      type='bar'
+      type="bar"
       width={width}
       height={height}
-
     />
-  )
-}
+  );
+};
 
-export default MuiColumnChart
+export default MuiColumnChart;
