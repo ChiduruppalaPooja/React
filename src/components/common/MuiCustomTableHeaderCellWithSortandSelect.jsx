@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { TableCell, Typography, Stack, IconButton, Menu, MenuItem, Checkbox } from '@mui/material';
+import { TableCell, Typography, Stack, IconButton, Menu, MenuItem, Radio, RadioGroup, FormControlLabel } from '@mui/material';
 import { useTheme } from '@mui/styles';
 import ArrowUpIcon from './ArrowDown';
 
@@ -8,6 +8,7 @@ const options = [
   { id: 2, value: 'Interrupted' },
   { id: 3, value: 'On Submit' },
   { id: 4, value: 'Tabswitch' },
+  { id: 5, value: 'All' },
 ];
 
 const ITEM_HEIGHT = 48;
@@ -25,7 +26,9 @@ const MuiCustomTableHeaderCellWithSortandSelect = ({
   const [anchorEl, setAnchorEl] = useState(null);
   const open = Boolean(anchorEl);
   const theme = useTheme();
-  const submissionTypesToShowinStudentTable = [1, 2, 3];
+
+  // State to manage selected option
+  const [selectedOption, setSelectedOption] = useState(5); // Initially selected option is id 5
 
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
@@ -39,6 +42,13 @@ const MuiCustomTableHeaderCellWithSortandSelect = ({
     const newSortOrder = sortOrder === 'asc' ? 'desc' : 'asc';
     sortHandler(newSortOrder, index);
     setSortOrder(newSortOrder);
+  };
+
+  const handleRadioChange = (event) => {
+    const selectedId = parseInt(event.target.value, 10); 
+    console.log(selectedId);
+    setSelectedOption(selectedId);
+    selectHandler(event, selectedId); 
   };
 
   return (
@@ -69,7 +79,7 @@ const MuiCustomTableHeaderCellWithSortandSelect = ({
         {isSortable && (
           <IconButton
             aria-label='sort'
-            sx={{ padding: '0', border: '1px solid red' }}
+            sx={{ padding: '0' }}
             onClick={changeSortOrder}
           >
             <ArrowUpIcon fontSize='small' color={theme.palette.grey[500]} />
@@ -96,51 +106,21 @@ const MuiCustomTableHeaderCellWithSortandSelect = ({
                 style: {
                   maxHeight: ITEM_HEIGHT * 4.5,
                   width: '20ch',
+                  justifyContent: 'center',
                 },
               }}
             >
-              {options.map((option) => (
-                <MenuItem key={option.id} sx={{ padding: '0' }}>
-                  <Stack direction='row' alignItems='center'>
-                    <Checkbox
-                      size='small'
-                      sx={{
-                        '&.Mui-checked': {
-                          color: 'primary',
-                        },
-                      }}
-                      onChange={(e) => selectHandler(e, option.id)}
-                      checked={submissionTypesToShowinStudentTable.includes(option.id)}
+              <RadioGroup value={selectedOption.toString()} onChange={handleRadioChange} >
+                {options.map((option) => (
+                  <MenuItem key={option.id} sx={{ padding: '0' }}>
+                    <FormControlLabel
+                      value={option.id.toString()}
+                      control={<Radio size='small' sx={{marginLeft: '20px'}}/>}
+                      label={option.value}
                     />
-                    <Typography
-                      variant='body1'
-                      sx={{
-                        color: theme.palette.grey[900],
-                        
-                      }}
-                    >
-                      {option.value}
-                    </Typography>
-                  </Stack>
-                </MenuItem>
-              ))}
-              <MenuItem
-                onClick={(e) => {
-                  selectHandler(e, 5);
-                  handleClose();
-                }}
-                sx={{ justifyContent: 'center' }}
-              >
-                <Typography
-                  variant='body1'
-                  sx={{
-                    color: theme.palette.info[700],
-                    fontWeight: 500,
-                  }}
-                >
-                  Clear all
-                </Typography>
-              </MenuItem>
+                  </MenuItem>
+                ))}
+              </RadioGroup>
             </Menu>
           </>
         )}

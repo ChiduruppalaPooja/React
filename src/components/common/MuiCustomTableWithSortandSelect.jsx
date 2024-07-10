@@ -27,9 +27,9 @@ const MuiCustomTableWithSortandSelect = ({
   const totalPages = Math.ceil(filtered_studentAssessmentList.length / rowsPerPage);
 
   const startIndex = (currentPageforTablepaginaton - 1) * rowsPerPage;
-
+  console.log('filtered data',filtered_studentAssessmentList);
   const currentTableData = filtered_studentAssessmentList.slice(startIndex, startIndex + rowsPerPage);
-
+  
   const paginationStyles = {
     '& .Mui-selected': {
       backgroundColor: (theme) => theme.palette.primary.main,
@@ -62,6 +62,7 @@ const MuiCustomTableWithSortandSelect = ({
               headerArray={HeaderArr}
               sortHandler={sortHandler}
               selectHandler={selectHandler}
+              
             />
           </TableHead>
           <TableBody sx={{ height: '385px' }}>

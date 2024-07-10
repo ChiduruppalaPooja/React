@@ -24,6 +24,8 @@ export default function TableAssessments() {
   const [sortedData, setSortedData] = useState(filteredAssessments);
   const [sortConfig, setSortConfig] = useState({ key: null, direction: 'asc' });
 
+  const [submissionTypesToShowinStudentTable, setSubmissionTypesToShowinStudentTable] = useState([]); // Initial state
+
   useEffect(() => {
     setCurrentPage(1);
   }, [semester]);
@@ -53,8 +55,23 @@ export default function TableAssessments() {
   const startIndex = (currentPage - 1) * rowsPerPage;
   const currentTableData = sortedData.slice(startIndex, startIndex + rowsPerPage);
 
-  const selectHandler = useCallback((event, id) => { console.log('Select Handler', id); }, []);
-  const viewStudentResult = useCallback((student) => { console.log('View Student Result', student); }, []);
+  const selectHandler = useCallback((event, id) => {
+    console.log('Select Handler', id);
+    let updatedSubmissionTypes;
+    if (id === 5) {
+      updatedSubmissionTypes = [1, 2, 3];
+    } else {
+      updatedSubmissionTypes = [id];
+    }
+    setSubmissionTypesToShowinStudentTable(updatedSubmissionTypes);
+
+    const data = filteredAssessments.filter(value => updatedSubmissionTypes.includes(value.submission_type));
+    setSortedData(data);
+  }, [filteredAssessments]);
+  const viewStudentResult = useCallback((student) => {
+    console.log('View Student Result', student);
+    // Implement viewStudentResult functionality as needed
+  }, []);
 
   const tablePaginationHandler = (event, page) => {
     setCurrentPage(page);
@@ -85,7 +102,8 @@ export default function TableAssessments() {
         currentPageforTablepaginaton={currentPage}
         tablePaginationHandler={tablePaginationHandler}
         filtered_studentAssessmentList={sortedData}
-        submissionTypesToShowinStudentTable={[1, 2, 3]}
+        submissionTypesToShowinStudentTable={submissionTypesToShowinStudentTable}
+        setSubmissionTypesToShowinStudentTable={setSubmissionTypesToShowinStudentTable}
       />
     </Stack>
   );
