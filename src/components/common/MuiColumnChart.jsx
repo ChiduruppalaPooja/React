@@ -109,7 +109,6 @@ const MuiColumnChart = ({
       labels: {
         show: false,
         formatter: function (val) {
-          console.log('value', val);
           return val;
         },
         style: {

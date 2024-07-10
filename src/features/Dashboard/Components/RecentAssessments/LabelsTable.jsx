@@ -8,15 +8,13 @@ import { dashboardSliceActions } from "../../../../store/store";
 
 export default function LabelsTable(){
     const assessmentsData = useSelector((state)=> state.dashboard.assessmentsData);
-    console.log('assessmentsData ', assessmentsData);
     const semester = useSelector((state)=> state.dashboard.semester);
-    console.log('semester ', semester);
     const dispatch = useDispatch()
     const changeSemester = (direction) => {
         if (direction === 'left' && semester !== 1) {
             dispatch(dashboardSliceActions.setSemester(semester - 1))
         }
-        else if (direction === 'right' && semester !== 8) {
+        else if (direction === 'right' && semester !== 3) {
             dispatch(dashboardSliceActions.setSemester(semester + 1))
         }
     }

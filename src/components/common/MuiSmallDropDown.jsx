@@ -15,7 +15,6 @@ export default function MuiSmallDropDown({
   ...props
 }) {
   const handleChange = (event) => {
-    console.log('value changed')
     setDropDownValue(event.target.value)
     // onChange(event);
   }

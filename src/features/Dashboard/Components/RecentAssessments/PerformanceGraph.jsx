@@ -7,8 +7,6 @@ import LabelsHeader from "./LabelsRecentAssessments";
 export default function PerformanceGraph() {
     const selectedSubject = useSelector((state) => state.dashboard.selectedSubject);
     const recent_assessments = useSelector((state) => state.dashboard.recentAssessmentsData);
-    console.log('Selected Subject:', selectedSubject);
-    console.log('Recent Assessments:', recent_assessments['x-axis']);
     
     if (!recent_assessments || recent_assessments.length === 0) {
         console.log('No recent assessments available.');

@@ -6,7 +6,6 @@ import LeaderRanking from './LeaderRanking'
 
 const LeaderBoardCard = ({ data, width = '100%', height = '100%' }) => {
 
-    // console.log(data, '--> LeaderBoardCard')
 
     return (
         <CustomCard width={width} height={height}>

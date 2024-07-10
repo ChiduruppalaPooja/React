@@ -9,9 +9,8 @@ import ZoomOutIcon from '@mui/icons-material/ZoomOut';
 import RotateLeftIcon from '@mui/icons-material/RotateLeft';
 import RotateRightIcon from '@mui/icons-material/RotateRight';
 
-import workerSrc from 'pdfjs-dist/build/pdf.worker.entry';
+pdfjs.GlobalWorkerOptions.workerSrc = `//cdnjs.cloudflare.com/ajax/libs/pdf.js/${pdfjs.version}/pdf.worker.js`;
 
-pdfjs.GlobalWorkerOptions.workerSrc = workerSrc;
 
 export default function PdfPage({ pdfTitle, pdfUrl }) {
     const navigate = useNavigate();
@@ -76,8 +75,8 @@ export default function PdfPage({ pdfTitle, pdfUrl }) {
                 <Stack direction={'row'} gap={'8px'}>
                     <Stack direction={'row'} gap={'8px'} className="pagenumber" sx={{ padding: '0 24px 0 24px' }}>
                         <Button onClick={handlePrevPage} disabled={pageNumber <= 1}>Previous</Button>
-                        <Typography>{pageNumber}</Typography>
-                        <Button onClick={handleNextPage}>Next</Button>
+                        <Typography>{pageNumber} / {numPages}</Typography>
+                        <Button onClick={handleNextPage} disabled={pageNumber >= numPages}>Next</Button>
                     </Stack>
                     <Box className='divider'></Box>
                     <Stack direction={'row'} gap={'16px'} className="zoom" sx={{ padding: '0 24px 0 24px' }}>
@@ -100,17 +99,18 @@ export default function PdfPage({ pdfTitle, pdfUrl }) {
                     </Stack>
                 </Stack>
             </Stack>
-            <Box marginLeft={'100px'} sx={{ marginTop: '1.31rem' }}>
-                {pdfUrl ? (
-                    <iframe
-                        src={`https://docs.google.com/viewer?url=${pdfUrl}&embedded=true`}
-                        style={{ width: '100%', height: '800px', border: 'none' }}
-                        title="pdf-document"
-                    />
-                ) : (
-                    <Typography>No PDF URL provided</Typography>
+            <Box marginLeft={'100px'} sx={{ position: 'relative' }}>
+                {pdfUrl && (
+                    <Document
+                        file={pdfUrl}
+                        onLoadSuccess={onDocumentLoadSuccess}
+                        onLoadError={(error) => console.error('Error loading document:', error)}
+                    >
+                        <Page key={`page-${pageNumber}`} pageNumber={pageNumber} scale={scale} rotate={rotate} />
+                    </Document>
                 )}
             </Box>
+
         </Stack>
     );
 }
