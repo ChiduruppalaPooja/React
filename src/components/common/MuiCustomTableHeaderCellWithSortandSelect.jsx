@@ -61,7 +61,6 @@ const MuiCustomTableHeaderCellWithSortandSelect = ({
             : index === arrayLength - 1
             ? '0 5px 5px 0'
             : '0',
-        border: '1px solid brown',
         flex: 1,
         border: 'none',
       }}

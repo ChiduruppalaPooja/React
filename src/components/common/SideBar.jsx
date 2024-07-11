@@ -1,5 +1,8 @@
 import React, { useState } from "react";
 import { Box } from "@mui/material";
+import { useLocation, useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import Cookies from "js-cookie";
 import Group from "../../assets/Group.svg";
 import DashboardOn from "../../assets/DashboardOn.svg";
 import DashboardOff from "../../assets/DashboardOff.svg";
@@ -8,24 +11,23 @@ import CoursesOff from "../../assets/CoursesOff.svg";
 import CoursesOn from "../../assets/CoursesOn.svg";
 import Logout from "../../assets/logout.svg";
 import { authSliceActions } from "../../store/store";
-import { useNavigate } from "react-router";
-import { useDispatch } from "react-redux";
-import Cookies from "js-cookie";
 
 export default function SideBar() {
-    const [activeTab, setActiveTab] = useState("dashboard");
-    const [isHovered, setIsHovered] = useState(false);
-    const dispatch = useDispatch();
+    const location = useLocation();
     const navigate = useNavigate();
+    const dispatch = useDispatch();
+    const [isHovered, setIsHovered] = useState(null);
 
     const handleDashboardClick = () => {
-        setActiveTab("dashboard");
-        navigate("/dashboard");
+        if (location.pathname !== "/dashboard") {
+            navigate("/dashboard");
+        }
     };
 
     const handleCoursesClick = () => {
-        setActiveTab("courses");
-        navigate("/courses");
+        if (!location.pathname.startsWith("/courses")) {
+            navigate("/courses");
+        }
     };
 
     const handleLogout = () => {
@@ -36,9 +38,14 @@ export default function SideBar() {
         navigate("/login");
     };
 
+    const isDashboardSelected = location.pathname === "/dashboard";
+    const isCoursesSelected = location.pathname.startsWith("/courses");
+    const isPDFPage = location.pathname.startsWith("/pdf");
+
     return (
         <Box sx={{ 
-            position: 'relative', 
+            position: 'fixed', 
+            top: '0px',
             width: '80px', 
             minWidth: '80px', 
             display: 'flex', 
@@ -60,7 +67,9 @@ export default function SideBar() {
                 }}
                 alt="Group"
             />
-            {activeTab === "dashboard" ? (
+            
+            {/* Dashboard Icon */}
+            {isDashboardSelected ? (
                 <Box className="DashboardSelected" sx={{ position: 'relative', marginTop: '30.98px', display: 'flex', flexDirection: 'row', gap: '16px' }}>
                     <Box sx={{ background: (theme) => theme.palette.primary.main, width: '3px', height: '40px', marginTop: '8px', borderRadius: '17px', cursor: 'pointer', marginBottom: '8px' }}></Box>
                     <Box sx={{ padding: '8px', marginTop: '8px', borderRadius: '8px', background: (theme) => theme.palette.primary[200], cursor: 'pointer', marginBottom: '8px' }}>
@@ -70,15 +79,17 @@ export default function SideBar() {
             ) : (
                 <Box className="DashboardNotSelected" sx={{ position: 'relative', marginTop: '30.98px' }}>
                     <Box sx={{ padding: '8px', marginTop: '8px', borderRadius: '8px', cursor: 'pointer', marginBottom: '8px', marginLeft: '19px' }}
-                        onMouseEnter={() => setIsHovered(true)}
-                        onMouseLeave={() => setIsHovered(false)}
+                        onMouseEnter={() => setIsHovered("dashboard")}
+                        onMouseLeave={() => setIsHovered(null)}
                         onClick={handleDashboardClick}
                     >
-                        <img src={isHovered ? DashboardHover : DashboardOff} alt="Dashboard" />
+                        <img src={isHovered === "dashboard" ? DashboardHover : DashboardOff} alt="Dashboard" />
                     </Box>
                 </Box>
             )}
-            {activeTab === "courses" ? (
+
+            {/* Courses Icon */}
+            {isCoursesSelected ? (
                 <Box className="CourseSelected" sx={{ position: 'relative', marginTop: '16px', display: 'flex', flexDirection: 'row', gap: '16px' }}>
                     <Box sx={{ background: (theme) => theme.palette.primary.main, width: '3px', height: '40px', marginTop: '8px', borderRadius: '17px', cursor: 'pointer', marginBottom: '8px' }}></Box>
                     <Box sx={{ padding: '8px', marginTop: '8px', borderRadius: '8px', background: (theme) => theme.palette.primary[200], cursor: 'pointer', marginBottom: '8px' }}>
@@ -88,14 +99,16 @@ export default function SideBar() {
             ) : (
                 <Box className="CourseNotSelected" sx={{ position: 'relative', marginTop: '16px' }}>
                     <Box sx={{ padding: '8px', marginTop: '8px', borderRadius: '8px', cursor: 'pointer', marginBottom: '8px', marginLeft: '19px' }}
-                        onMouseEnter={() => setIsHovered(true)}
-                        onMouseLeave={() => setIsHovered(false)}
+                        onMouseEnter={() => setIsHovered("courses")}
+                        onMouseLeave={() => setIsHovered(null)}
                         onClick={handleCoursesClick}
                     >
-                        <img src={CoursesOff} alt="Courses Off" />
+                        <img src={isHovered === "courses" ? CoursesOn : CoursesOff} alt="Courses Off" />
                     </Box>
                 </Box>
             )}
+
+            {/* Logout Icon */}
             <Box className="Log" sx={{ marginTop: 'auto', marginBottom: '16px', marginLeft: '27px', marginRight: '26px', display: 'flex', justifyContent: 'center', alignItems: 'center', cursor: 'pointer' }} onClick={handleLogout}>
                 <img src={Logout} alt="Logout" />
             </Box>

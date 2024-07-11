@@ -14,7 +14,7 @@ export default function CourseDetail() {
     };
 
     return (
-        <Stack direction={"row"} gap={'29.5px'}>
+        <Stack direction={"row"} gap={'29.5px'} >
             <Box
                 sx={{
                     paddingLeft: '33.5px',

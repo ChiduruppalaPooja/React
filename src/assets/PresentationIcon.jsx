@@ -1,13 +1,13 @@
 import React from 'react';
 
-const PresentationIcon = () => (
-  <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 30 30" fill="none">
-    <path d="M7.37499 21.25H22.6125C24.9875 21.25 26.2375 20 26.2375 17.625V2.5H3.73749V17.625C3.74999 20 4.99999 21.25 7.37499 21.25Z" stroke="#454F5B" strokeWidth="2" strokeMiterlimit="10" strokeLinecap="round" strokeLinejoin="round"/>
-    <path d="M2.5 2.5H27.5" stroke="#454F5B" strokeWidth="2" strokeMiterlimit="10" strokeLinecap="round" strokeLinejoin="round"/>
-    <path d="M10 27.5L15 25V21.25" stroke="#454F5B" strokeWidth="2" strokeMiterlimit="10" strokeLinecap="round" strokeLinejoin="round"/>
-    <path d="M20 27.5L15 25" stroke="#454F5B" strokeWidth="2" strokeMiterlimit="10" strokeLinecap="round" strokeLinejoin="round"/>
-    <path d="M9.375 13.75L13.3125 10.4625C13.625 10.2 14.0375 10.275 14.25 10.625L15.75 13.125C15.9625 13.475 16.375 13.5375 16.6875 13.2875L20.625 10" stroke="#454F5B" strokeWidth="2" strokeMiterlimit="10" strokeLinecap="round" strokeLinejoin="round"/>
-  </svg>
-);
+const PresentationIcon = () => {
+  return (
+    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+      <path fill-rule="evenodd" clip-rule="evenodd" d="M4 5C3.44772 5 3 5.44772 3 6V18C3 18.5523 3.44772 19 4 19H20C20.5523 19 21 18.5523 21 18V6C21 5.44772 20.5523 5 20 5H4ZM1 6C1 4.34315 2.34315 3 4 3H20C21.6569 3 23 4.34315 23 6V18C23 19.6569 21.6569 21 20 21H4C2.34315 21 1 19.6569 1 18V6Z" fill="#252525"/>
+      <path d="M9.39615 8.36625C8.87496 9.02145 9.34154 9.98877 10.1788 9.98877H13.8214C14.6586 9.98877 15.1252 9.02145 14.604 8.36625L12.7827 6.07659C12.3823 5.57329 11.6178 5.57329 11.2175 6.07659L9.39615 8.36625Z" fill="#252525"/>
+      <path d="M14.6038 15.7153C15.125 15.0601 14.6585 14.0928 13.8212 14.0928H10.1786C9.3414 14.0928 8.87483 15.0601 9.39602 15.7153L11.2173 18.005C11.6177 18.5083 12.3822 18.5083 12.7825 18.005L14.6038 15.7153Z" fill="#252525"/>
+    </svg>
+  );
+};
 
 export default PresentationIcon;

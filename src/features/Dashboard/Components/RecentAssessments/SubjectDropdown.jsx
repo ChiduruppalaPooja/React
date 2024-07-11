@@ -43,7 +43,7 @@ export default function SubjectDropdown(){
 
     return(
         <>
-        <Stack ref={anchorRef} direction="row" justifyContent={"center"} alignItems={"center"} onClick={handleClick}>
+        <Stack ref={anchorRef} direction="row" justifyContent={"center"} alignItems={"center"} onClick={handleClick} sx={{cursor: 'pointer',}}>
             <Typography variant="body2" sx={{color: (theme) => theme.palette.grey[400] }}>{selectedSubject}</Typography>
             {!dropDownVisible ? 
                 <KeyboardArrowDownIcon 
@@ -57,7 +57,7 @@ export default function SubjectDropdown(){
                 <KeyboardControlKeyIcon 
                     onClick={hideSubjects}
                     sx={{
-                        cursor: 'pointer',
+                        
                         color: (theme) => theme.palette.grey[400],
                         marginLeft: '10px'
                     }} 

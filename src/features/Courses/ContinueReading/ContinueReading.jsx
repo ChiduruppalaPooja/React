@@ -12,7 +12,7 @@ export default function ContinueReading(){
         <Stack direction={'column'} gap={'12px'} sx={{ marginTop: '47px', textAlign: 'left', marginLeft: '56px' }}>
             <Typography variant="h" sx={{ color: (theme) => theme.palette.common.black }}>Continue Reading</Typography>
             <Stack direction={'row'} gap={'22px'} alignItems={'center'}>
-                {continueReadingData.map((data, index) => (
+                {continueReadingData?.map((data, index) => (
                     <CustomCardSmall 
                         key={index}
                         index={index}

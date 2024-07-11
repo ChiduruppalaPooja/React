@@ -6,6 +6,7 @@ import { useSelector } from "react-redux";
 import ContinueReading from "./ContinueReading/ContinueReading";
 import UnitSelection from "./UnitDetails.jsx/UnitSelection";
 import Topics from "./Topics/Topics";
+import AccordianTopics from "./Topics/AccordianTopic";
 
 export default function MainCourse() {
     const name = useSelector((state) => state.dashboard.name);
@@ -19,13 +20,13 @@ export default function MainCourse() {
     }, [unitsData]);
 
     return (
-        <Stack direction="column" sx={{ background: (theme) => theme.palette.primary.contrastText }}>
-            <TopNavigation icon={''}/>
-            <Box sx={{ background: (theme) => theme.palette.grey[200], height: '1px' }}></Box>
+        <Stack direction="column" sx={{ background: (theme) => theme.palette.primary.contrastText}}>
+            {/* <TopNavigation icon={''}/> */}
             <CourseDetail />
             <ContinueReading />
-            <UnitSelection setSelectedTopics={setSelectedTopics} />
-            <Topics topics={selectedTopics} />
+            <AccordianTopics />
+            {/* <UnitSelection setSelectedTopics={setSelectedTopics} /> */}
+            {/* <Topics topics={selectedTopics} /> */}
         </Stack>
     );
 }

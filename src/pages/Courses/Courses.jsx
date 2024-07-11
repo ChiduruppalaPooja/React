@@ -22,8 +22,8 @@ export default function Courses() {
     if (error) return <div>Error: {error.message}</div>;
 
     return (
-        <Stack direction={"row"} sx={{ background: (theme) => theme.palette.primary.contrastText }}>
-            <SideBar />
+        <Stack direction={"row"} sx={{ background: (theme) => theme.palette.primary.contrastText, marginLeft: '80px' }}>
+            {/* <SideBar /> */}
             <MainCourse />
         </Stack>
     );

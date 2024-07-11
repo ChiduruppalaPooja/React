@@ -61,6 +61,14 @@ export default function MuiCalendar() {
                                             maxHeight: '234px',
                                             marginLeft: 0,
                                         },
+                                        '& .css-1fpg8w0-MuiButtonBase-root-MuiPickersDay-root:not(.Mui-selected)':{
+                                            background: (theme)=>theme.palette.primary.main,
+                                            color: (theme)=>theme.palette.primary.contrastText,
+                                            borderColor: (theme)=>theme.palette.primary.main,
+                                        },
+                                        '& .css-th7zkb-MuiDateCalendar-root .MuiPickersDay-root':{
+                                            color: (theme)=>`${theme.palette.primary.contrastText} !important`,
+                                        },
                                         '& .MuiDayCalendar-header': {
                                             paddingLeft: '20px',
                                             paddingRight: '20px',

@@ -11,7 +11,7 @@ export default function Pdf() {
   
   return (
     <Stack direction={"row"} sx={{ background: (theme) => theme.palette.primary.contrastText }}>
-      <SideBar />
+      {/* <SideBar /> */}
       <PdfPage pdfTitle={pdfTitle} pdfUrl={pdfUrl}
         
       />

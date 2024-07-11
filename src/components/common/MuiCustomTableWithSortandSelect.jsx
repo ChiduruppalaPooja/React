@@ -24,15 +24,15 @@ const MuiCustomTableWithSortandSelect = ({
 }) => {
   const rowsPerPage = 8;
 
-  const totalPages = Math.ceil(filtered_studentAssessmentList.length / rowsPerPage);
+  const totalPages = Math.ceil(filtered_studentAssessmentList?.length / rowsPerPage);
 
   const startIndex = (currentPageforTablepaginaton - 1) * rowsPerPage;
   console.log('filtered data',filtered_studentAssessmentList);
-  const currentTableData = filtered_studentAssessmentList.slice(startIndex, startIndex + rowsPerPage);
+  const currentTableData = filtered_studentAssessmentList?.slice(startIndex, startIndex + rowsPerPage);
   
   const paginationStyles = {
     '& .Mui-selected': {
-      backgroundColor: (theme) => theme.palette.primary.main,
+      backgroundColor: (theme) => `${theme.palette.primary.main} !important`,
       color: '#FFF',
       width: '24px',
       borderRadius: '25px',

@@ -42,8 +42,8 @@ export default function Dashboard() {
     if (dashboardError || assessmentsError) return <div>Error: {dashboardError || assessmentsError}</div>;
 
     return (
-        <Stack direction={"row"} sx={{ background: (theme) => theme.palette.primary.contrastText }}>
-            <SideBar />
+        <Stack direction={"row"} sx={{ width: '100%',background: (theme) => theme.palette.primary.contrastText }}>
+            {/* <SideBar /> */}
             <MainDashboard />
         </Stack>
     );

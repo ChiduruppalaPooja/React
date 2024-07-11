@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Stack, Typography, Box } from "@mui/material";
+import { Stack, Typography, Box, Popover, IconButton } from "@mui/material";
 import { useSelector } from "react-redux";
 import typography from "../../theme/typography";
 import Logout from "../../assets/logout.svg";
@@ -8,19 +8,25 @@ import { useDispatch } from "react-redux";
 import Cookies from "js-cookie";
 import { authSliceActions } from "../../store/store";
 
-
-
-export default function TopNavigation({icon}) {
-    const [profileVisibility, setProfileVisibility] = useState(false);
+export default function TopNavigation() {
+    const [anchorEl, setAnchorEl] = useState(null);
     const name = useSelector((state) => state.dashboard.profile.name);
     const profilePicture = useSelector((state) => state.dashboard.profile.profilePic);
     const email = useSelector((state) => state.dashboard.profile.email);
     const dispatch = useDispatch();
     const navigate = useNavigate();
 
-    function showProfile(){
-        setProfileVisibility(!profileVisibility)
-    }
+    const handleProfileClick = (event) => {
+        setAnchorEl(event.currentTarget);
+    };
+
+    const handleClose = () => {
+        setAnchorEl(null);
+    };
+
+    const open = Boolean(anchorEl);
+    const id = open ? 'profile-popover' : undefined;
+
     const handleLogout = () => {
         dispatch(authSliceActions.logout());
         Cookies.remove('username');
@@ -30,9 +36,19 @@ export default function TopNavigation({icon}) {
     };
 
     return (
-        <Stack justifyContent={"space-between"} direction={"row"} sx={{paddingLeft: '18px'}}>
-            <Typography sx={
-                {
+        <Box display={'flex'} flexDirection={'row'} justifyContent={'space-between'}
+            
+            sx={{
+                paddingLeft: '18px',
+               paddingRight: '26px',
+                marginLeft: '80px',
+                zIndex: '20',
+                borderBottom: '1px solid #DFE3E8',
+                background: (theme) => theme.palette.primary.contrastText
+            }}
+        >
+            <Typography
+                sx={{
                     height: '32px',
                     fontFamily: typography.fontFamily,
                     fontSize: '24px',
@@ -42,19 +58,21 @@ export default function TopNavigation({icon}) {
                     marginTop: '27px',
                     marginBottom: '21px',
                     borderRadius: '25px',
-                    background: (theme)=>theme.palette.primary.contrastText
-                }
-            }>Good morning, {name}{icon} </Typography>
-            <Box
+                   
+                    background: (theme) => theme.palette.primary.contrastText
+                }}
+            >
+                Good morning, {name} 👋
+            </Typography>
+            <IconButton
                 sx={{
                     width: '50px',
                     height: '50px',
                     borderRadius: '24px',
                     marginTop: '15px',
-                    marginRight: '26px',
-                    overflow: 'hidden',
-                    cursor: 'pointer'
-                }} onClick={showProfile}
+                    
+                }}
+                onClick={handleProfileClick}
             >
                 <img
                     src={profilePicture}
@@ -66,62 +84,78 @@ export default function TopNavigation({icon}) {
                         borderRadius: '24px',
                     }}
                 />
-            </Box>
-            {profileVisibility && (
+            </IconButton>
+            <Popover
+                id={id}
+                open={open}
+                anchorEl={anchorEl}
+                onClose={handleClose}
+                anchorOrigin={{
+                    vertical: 'bottom',
+                    horizontal: 'right',
+                }}
+                transformOrigin={{
+                    vertical: 'top',
+                    horizontal: 'right',
+                }}
+            >
+                <Box
+                    sx={{
+                        width: '215px',
+                        height: '170px',
+                        background: (theme) => theme.palette.grey[100],
+                        borderRadius: '8px',
+                        boxShadow: '0px 4px 10px rgba(0, 0, 0, 0.1)',
+                        padding: '10px',
+                        display: 'flex',
+                        flexDirection: 'column',
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                    }}
+                >
                     <Box
                         sx={{
-                            position: 'absolute',
-                            top: '50px', 
-                            right: '0',
-                            zIndex: 10, 
-                            width: '215px',
-                            height: '170px',
-                            background: (theme)=>theme.palette.grey[100],
-                            borderRadius: '8px',
-                            boxShadow: '0px 4px 10px rgba(0, 0, 0, 0.1)', 
-                            padding: '10px',
-                            display: 'flex',
-                            flexDirection: 'column',
-                            alignItems: 'center',
-                            justifyContent: 'center',
-                            marginRight: '10px'
+                            width: '50px',
+                            height: '50px',
+                            borderRadius: '24px',
+                            overflow: 'hidden',
+                            cursor: 'pointer'
                         }}
                     >
-                        <Box
-                sx={{
-                    width: '50px',
-                    height: '50px',
-                    borderRadius: '24px',
-                    marginTop: '10px',
-                    
-                    overflow: 'hidden',
-                    cursor: 'pointer'
-                }} 
-            >
-                <img
-                    src={profilePicture}
-                    alt=""
-                    style={{
-                        width: '100%',
-                        height: '100%',
-                        objectFit: 'cover',
-                        borderRadius: '24px',
-                    }}
-                />
-            </Box>
-            <Typography variant="subtitle4">{name}</Typography>
-            <Typography variant="bodys" sx={{color: (theme)=> theme.palette.grey[400]}}>{email}</Typography>
-                    <Stack direction={"row"} alignItems={"center"} justifyContent={'left'}sx={{padding: '5px', width: '185px', borderRadius: '10px', background: (theme)=>theme.palette.primary.contrastText, marginTop: '5px', cursor: 'pointer' }} onClick={handleLogout}>
-                    <Box className="Log" sx={{ paddingTop: '8px', paddingBottom: '7px', marginLeft: '27px', marginRight: '9px', display: 'flex', justifyContent: 'center', alignItems: 'center' }} >
-                <img src={Logout} alt="Logout" />
-            </Box>
-            <Typography variant="body2">Logout</Typography>
-                    </Stack>
-
+                        <img
+                            src={profilePicture}
+                            alt=""
+                            style={{
+                                width: '100%',
+                                height: '100%',
+                                objectFit: 'cover',
+                                borderRadius: '24px',
+                            }}
+                        />
                     </Box>
-                )}
-
-        </Stack>
-
+                    <Typography variant="subtitle4">{name}</Typography>
+                    <Typography variant="body2" sx={{ color: (theme) => theme.palette.grey[400] }}>{email}</Typography>
+                    <Stack
+                        direction="row"
+                        alignItems="center"
+                        justifyContent="left"
+                        sx={{
+                            padding: '5px',
+                            width: '185px',
+                            borderRadius: '10px',
+                            background: (theme) => theme.palette.primary.contrastText,
+                            marginTop: '5px',
+                            cursor: 'pointer'
+                        }}
+                        onClick={handleLogout}
+                    >
+                        <Box sx={{  paddingBottom: '7px', marginLeft: '27px', marginRight: '9px', display: 'flex', justifyContent: 'center', alignItems: 'center' }} >
+                            <img src={Logout} alt="Logout" />
+                        </Box>
+                        <Typography variant="body2">Logout</Typography>
+                    </Stack>
+                </Box>
+            </Popover>
+        </Box>
     );
 }

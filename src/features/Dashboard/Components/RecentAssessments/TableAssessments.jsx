@@ -16,7 +16,7 @@ export default function TableAssessments() {
     { label: 'Mark', key: 'percentage_scored', isSortable: true, isSelectable: false },
   ], []);
 
-  const filteredAssessments = useMemo(() => assessments.filter(assessment => assessment.semester === semester), [assessments, semester]);
+  const filteredAssessments = useMemo(() => assessments?.filter(assessment => assessment.semester === semester), [assessments, semester]);
 
   const [currentPage, setCurrentPage] = useState(1);
   const rowsPerPage = 8;
@@ -31,7 +31,7 @@ export default function TableAssessments() {
   }, [semester]);
 
   useEffect(() => {
-    let sortableItems = [...filteredAssessments];
+    let sortableItems = filteredAssessments!=undefined?[...filteredAssessments]:[];
     if (sortConfig.key) {
       sortableItems.sort((a, b) => {
         if (a[sortConfig.key] < b[sortConfig.key]) {
@@ -51,9 +51,9 @@ export default function TableAssessments() {
     setSortConfig({ key, direction: order });
   }, [HeaderArr]);
 
-  const totalPages = Math.ceil(sortedData.length / rowsPerPage);
+  const totalPages = Math.ceil(sortedData?.length / rowsPerPage);
   const startIndex = (currentPage - 1) * rowsPerPage;
-  const currentTableData = sortedData.slice(startIndex, startIndex + rowsPerPage);
+  const currentTableData = sortedData?.slice(startIndex, startIndex + rowsPerPage);
 
   const selectHandler = useCallback((event, id) => {
     console.log('Select Handler', id);
@@ -65,7 +65,7 @@ export default function TableAssessments() {
     }
     setSubmissionTypesToShowinStudentTable(updatedSubmissionTypes);
 
-    const data = filteredAssessments.filter(value => updatedSubmissionTypes.includes(value.submission_type));
+    const data = filteredAssessments?.filter(value => updatedSubmissionTypes.includes(value.submission_type));
     setSortedData(data);
   }, [filteredAssessments]);
   const viewStudentResult = useCallback((student) => {

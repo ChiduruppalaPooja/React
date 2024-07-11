@@ -10,11 +10,12 @@ const MuiColumnChart = ({
   xaxisTitle,
   width,
   height,
-  daataLabelsColor,
+  dataLabelsColor,
   primaryBarColor,
-  secondarybarColor,
+  secondaryBarColor,
 }) => {
   const theme = useTheme();
+
   const options = {
     chart: {
       type: 'bar',
@@ -45,7 +46,9 @@ const MuiColumnChart = ({
         fontFamily: 'Axiforma-SemiBold, Arial, sans-serif',
         fontWeight: 500,
         cssClass: 'apexcharts-xaxis-label',
-        colors: series[0].data.map(value => value !== 0 ? daataLabelsColor : secondarybarColor),
+        colors: series[0].data.map((value) =>
+          value !== 0 ? primaryBarColor : secondaryBarColor
+        ),
       },
     },
     xaxis: {
@@ -129,16 +132,15 @@ const MuiColumnChart = ({
     },
     colors: [
       function ({ value }) {
-        return value !== 0 ? primaryBarColor : secondarybarColor;
+        return value !== 0 ? primaryBarColor : secondaryBarColor;
       },
     ],
     tooltip: {
       enabled: false,
     },
   };
-  
+
   return (
-    
     <Chart
       options={options}
       series={series}

@@ -5,10 +5,10 @@ import CourseCard from "./CourseCard";
 export default function Courses(){
     const coursesData = useSelector((state)=>state.dashboard.coursesData)
     return(
-        <Stack direction={"column"} gap={'15px'}>
+        <Stack direction={"column"} gap={'15px'} sx={{marginLeft: '20px'}}>
             <Typography variant="h5" textAlign={"left"}>Your Courses</Typography>
             <Stack direction={'row'}  gap='22px'>
-            {coursesData.map((course, index) => (
+            {coursesData?.map((course, index) => (
                         <CourseCard
                             key={index}
                             name={course.name}
