@@ -12,9 +12,9 @@ export default function Materials({ materials }) {
   };
 
   return (
-    <Stack direction="column" gap="24px" sx={{ marginLeft: '26px' }}>
+    <Stack direction="column" gap="24px" justifyContent={'space-around'} sx={{ marginLeft: '26px', paddingBottom: '10px' }}>
       {materials.map((material, index) => (
-        <Stack key={index} direction="row" gap={'218px'} sx={{ cursor: 'pointer' }} onClick={() => handleMaterialClick(material.name, material.url)}>
+        <Stack key={index} direction="row" gap={'218px'} justifyContent={'space-around'}  sx={{ cursor: 'pointer' }} onClick={() => handleMaterialClick(material.name, material.url)}>
           <Stack direction={"row"} gap={"10px"}>
             <File />
             <Typography variant="caption2" sx={{ color: (theme) => theme.palette.grey[900], width: '175px', textAlign: 'left' }}>

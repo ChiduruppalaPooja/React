@@ -1,9 +1,11 @@
 import React from "react";
 import { Box, Stack, Typography } from "@mui/material";
-import blueEllipse from "../../../../assets/blueEllipse.svg";
 import Attempted from "../../../../components/common/Attempted";
-import redEllipse from "../../../../assets/redEllipse.svg";
+// import redEllipse from "../../../../assets/redEllipse.svg";
 import SubjectDropdown from "./SubjectDropdown";
+import BlueEllipse from "../../../../assets/BlueEllipse";
+import RedEllipse from "../../../../assets/RedEllipse";
+
 export default function LabelsRecentAssessments() {
     return (
 
@@ -14,10 +16,10 @@ export default function LabelsRecentAssessments() {
             <Stack direction={"row"} justifyContent={"space-between"} gap={'18px'}>
                 <Stack direction={"row"} justifyContent={"space-between"} gap={'18px'}>
 
-                    <Attempted indicator={blueEllipse} value={'Attempted'} />
-                    <Attempted indicator={redEllipse} value={'Unattempted'} />
+                    <Attempted indicator={BlueEllipse} value={'Attempted'} />
+                    <Attempted indicator={RedEllipse} value={'Unattempted'} />
                 </Stack>
-                <Stack direction={"row"} justifyContent={"space-between"} alignItems={"center"}>
+                <Stack direction={"row"} justifyContent={"space-between"} alignItems={"center"} >
                     <SubjectDropdown />
                 </Stack>
 

@@ -1,8 +1,9 @@
 import React, { useState, useEffect, useMemo, useCallback } from 'react';
 import LabelsTable from './LabelsTable';
-import { Stack } from '@mui/material';
+import { Stack, Box, Typography, Link } from '@mui/material';
 import MuiCustomTableWithSortandSelect from '../../../../components/common/MuiCustomTableWithSortandSelect';
 import { useSelector } from 'react-redux';
+import ErrorMark from "../../../../assets/ErrorMark.jsx"
 
 export default function TableAssessments() {
   const assessments = useSelector((state) => state.dashboard.assessmentsData.assessments);
@@ -16,7 +17,10 @@ export default function TableAssessments() {
     { label: 'Mark', key: 'percentage_scored', isSortable: true, isSelectable: false },
   ], []);
 
-  const filteredAssessments = useMemo(() => assessments?.filter(assessment => assessment.semester === semester), [assessments, semester]);
+  const filteredAssessments = useMemo(() => 
+    assessments?.filter(assessment => assessment.semester === semester), 
+    [assessments, semester]
+  );
 
   const [currentPage, setCurrentPage] = useState(1);
   const rowsPerPage = 8;
@@ -24,14 +28,15 @@ export default function TableAssessments() {
   const [sortedData, setSortedData] = useState(filteredAssessments);
   const [sortConfig, setSortConfig] = useState({ key: null, direction: 'asc' });
 
-  const [submissionTypesToShowinStudentTable, setSubmissionTypesToShowinStudentTable] = useState([]); // Initial state
+  const [submissionTypesToShowinStudentTable, setSubmissionTypesToShowinStudentTable] = useState([]); 
 
   useEffect(() => {
     setCurrentPage(1);
   }, [semester]);
 
   useEffect(() => {
-    let sortableItems = filteredAssessments!=undefined?[...filteredAssessments]:[];
+    setCurrentPage(1);
+    let sortableItems = filteredAssessments != undefined ? [...filteredAssessments] : [];
     if (sortConfig.key) {
       sortableItems.sort((a, b) => {
         if (a[sortConfig.key] < b[sortConfig.key]) {
@@ -56,7 +61,7 @@ export default function TableAssessments() {
   const currentTableData = sortedData?.slice(startIndex, startIndex + rowsPerPage);
 
   const selectHandler = useCallback((event, id) => {
-    console.log('Select Handler', id);
+    setCurrentPage(1);
     let updatedSubmissionTypes;
     if (id === 5) {
       updatedSubmissionTypes = [1, 2, 3];
@@ -68,14 +73,18 @@ export default function TableAssessments() {
     const data = filteredAssessments?.filter(value => updatedSubmissionTypes.includes(value.submission_type));
     setSortedData(data);
   }, [filteredAssessments]);
+
   const viewStudentResult = useCallback((student) => {
     console.log('View Student Result', student);
-    // Implement viewStudentResult functionality as needed
   }, []);
 
   const tablePaginationHandler = (event, page) => {
     setCurrentPage(page);
   };
+
+  function handleReload() {
+    window.location.reload();
+  }
 
   return (
     <Stack
@@ -84,27 +93,42 @@ export default function TableAssessments() {
       sx={{
         marginTop: '15px',
         borderRadius: '10px',
-        border: '1px solid #F4F6F8',
-        background: '#FFF',
+        borderBottom: (theme) => `1px solid ${theme.palette.grey[100]}`,
+        background: (theme) => theme.palette.primary.contrastText,
         boxShadow: '10px 10px 32px 0px rgba(22, 22, 22, 0.04)',
         marginLeft: '19px',
         paddingBottom: '22.45px',
       }}
     >
       <LabelsTable />
-      <MuiCustomTableWithSortandSelect
-        HeaderArr={HeaderArr}
-        tableData={currentTableData}
-        viewStudentResult={viewStudentResult}
-        sortHandler={sortHandler}
-        selectHandler={selectHandler}
-        loading_reportData={false}
-        currentPageforTablepaginaton={currentPage}
-        tablePaginationHandler={tablePaginationHandler}
-        filtered_studentAssessmentList={sortedData}
-        submissionTypesToShowinStudentTable={submissionTypesToShowinStudentTable}
-        setSubmissionTypesToShowinStudentTable={setSubmissionTypesToShowinStudentTable}
-      />
+      {assessments != undefined ?
+        <MuiCustomTableWithSortandSelect
+          HeaderArr={HeaderArr}
+          tableData={currentTableData}
+          viewStudentResult={viewStudentResult}
+          sortHandler={sortHandler}
+          selectHandler={selectHandler}
+          loading_reportData={false}
+          currentPageforTablepaginaton={currentPage}
+          tablePaginationHandler={tablePaginationHandler}
+          filtered_studentAssessmentList={sortedData}
+          submissionTypesToShowinStudentTable={submissionTypesToShowinStudentTable}
+          setSubmissionTypesToShowinStudentTable={setSubmissionTypesToShowinStudentTable}
+        /> :
+        <Box
+          height='530px'
+          display={'flex'}
+          justifyContent={'center'}
+          flexDirection={'column'}
+          alignItems={'center'}
+          paddingBottom={'100px'}
+          width={'100%'}
+        >
+          <ErrorMark />
+          <Typography variant='h2' color={(theme) => theme.palette.grey[400]}>Error Loading Assessment</Typography>
+          <Link variant='h5' onClick={handleReload} sx={{ cursor: 'pointer' }}>Reload</Link>
+        </Box>
+      }
     </Stack>
   );
 }

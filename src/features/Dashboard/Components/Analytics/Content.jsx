@@ -1,12 +1,13 @@
 import React from "react";
 import CustomCard from "../../../../components/common/CustomCard";
 import AssessmentDetailCard from "../../../../components/common/AssessmentDetailCard";
-import { Grid, Typography } from "@mui/material";
+import { Grid, Typography, Skeleton } from "@mui/material";
 import { useSelector } from "react-redux";
 export default function Content() {
     const dashboardData = useSelector((state) => state.dashboard.analyticsData);
     const dashboardDataKeys = Object.keys(dashboardData);
     const dashboardDataValues = Object.values(dashboardData);
+   
 
     return (
         <Grid container direction="column" justifyContent="space-between" sx={{ paddingLeft: '18px', background: (theme) => theme.palette.primary.contrastText, paddingRight: '26px' }}>

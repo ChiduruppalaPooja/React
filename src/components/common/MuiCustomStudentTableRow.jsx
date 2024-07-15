@@ -37,7 +37,7 @@ const MuiCustomStudentTableRow = ({ stu, viewStudentResult }) => {
                 display: 'flex',
                 justifyContent: 'space-between',
                 alignItems: 'center',
-                marginBottom: '18px', // Add margin bottom here if needed
+                marginBottom: '18px', 
             }}
         >
             <TableCell scope='row' sx={{ flex: 1, border: 'none', padding: '10px' }}>

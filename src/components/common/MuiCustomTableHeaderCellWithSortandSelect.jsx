@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
 import { TableCell, Typography, Stack, IconButton, Menu, MenuItem, Radio, RadioGroup, FormControlLabel } from '@mui/material';
 import { useTheme } from '@mui/styles';
-import ArrowUpIcon from './ArrowDown';
+import ArrowUpIcon from './ArrowUpIcon';
+import ArrowDownIcon from '../../assets/ArrowDownIcon';
 
 const options = [
   { id: 1, value: 'Timeout' },
@@ -27,7 +28,6 @@ const MuiCustomTableHeaderCellWithSortandSelect = ({
   const open = Boolean(anchorEl);
   const theme = useTheme();
 
-  // State to manage selected option
   const [selectedOption, setSelectedOption] = useState(5); // Initially selected option is id 5
 
   const handleClick = (event) => {
@@ -81,8 +81,11 @@ const MuiCustomTableHeaderCellWithSortandSelect = ({
             sx={{ padding: '0' }}
             onClick={changeSortOrder}
           >
-            <ArrowUpIcon fontSize='small' color={theme.palette.grey[500]} />
-          </IconButton>
+{sortOrder === 'asc' ? (
+              <ArrowUpIcon fontSize='small' color={theme.palette.grey[500]} />
+            ) : (
+              <ArrowDownIcon fontSize='small' color={theme.palette.grey[500]} />
+            )}          </IconButton>
         )}
         {isSelectable && (
           <>

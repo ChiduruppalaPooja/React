@@ -5,16 +5,19 @@ import BackIcon from "../../../assets/BackIcon";
 import CourseTitle from "./CourseTitle";
 import CoursePercent from "./CoursePercent";
 import CourseDescription from "./CourseDescription";
+import { useEffect, useRef } from "react";
 
 export default function CourseDetail() {
     const navigate = useNavigate();
+    const scrollRef = useRef(null);
 
     const handleBackClick = () => {
         navigate(-1); 
     };
+   
 
     return (
-        <Stack direction={"row"} gap={'29.5px'} >
+        <Stack direction={"row"} gap={'29.5px'} ref={scrollRef}>
             <Box
                 sx={{
                     paddingLeft: '33.5px',
@@ -25,7 +28,7 @@ export default function CourseDetail() {
             >
                 <BackIcon />
             </Box>
-            <Stack direction={'column'} alignItems={'flex-start'} sx={{ marginTop: '34.29px' }}>
+            <Stack  direction={'column'} alignItems={'flex-start'} sx={{ marginTop: '34.29px' }}>
                 <CourseTitle />
                 <CoursePercent />
                 <CourseDescription />

@@ -14,12 +14,16 @@ export default function CoursePercent() {
                 valueLabelDisplay="auto"
                 max={100}
                 min={0}
+                components={{
+                    Thumb: () => null,
+                    ValueLabel: () => null,
+                }}
                 sx={{
-                    color: '#0B58F5',
+                    color: (theme)=>theme.palette.primary.main,
                     width: '300px',
+                    cursor: 'default',
                     "& .MuiSlider-thumb": {
-                        width: 0,
-                        height: 0,
+                        display: 'none',
                     },
                 }}
             />

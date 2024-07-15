@@ -99,7 +99,7 @@ export default function LoginForm() {
                 gap: "12px",
             }}>
                 <Box sx={{
-                    color: "#161C24",
+                    color: (theme)=>theme.palette.grey[900],
                     fontFamily: typography.fontFamily,
                     fontSize: pxToRem(48),
                     fontStyle: "normal",
@@ -109,7 +109,7 @@ export default function LoginForm() {
                     Login
                 </Box>
                 <Box sx={{
-                    color: "#161C24",
+                    color: (theme)=>theme.palette.grey[900],
                     fontFamily: typography.fontFamily,
                     fontSize: pxToRem(16),
                     fontStyle: "normal",
@@ -126,7 +126,7 @@ export default function LoginForm() {
                 gap: "24px",
                 marginTop: "48px",
             }}>
-                <LoginTextBox value={userName} onChange={handleUsernameChange} errorMessage={errorMessage} loginClicked={loginClicked}/>
+                <LoginTextBox value={userName} onChange={handleUsernameChange} errorMessage={errorMessage} loginClicked={loginClicked} autoFocus/>
                 <LoginTextBox value={password} passwordImg={EyeSlashFill} visibleImg={visibleImg} onChange={handlePasswordChange}/>
                 
             </Box>

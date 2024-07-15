@@ -11,6 +11,12 @@ const profile = {
     profilePic: ''
 
 }
+const topProfile = {
+    name: '',
+    email: '',
+    profilePic: ''
+
+}
 const subjects = []
 const analyticsData = []
 const leaderBoardData = []
@@ -20,6 +26,7 @@ const semester = 1
 
 const intialAsessmentsSliceData = {
     profile,
+    topProfile,
     assessmentsData: {},
     coursesData: [],
     recentAssessmentsData,
@@ -62,7 +69,13 @@ const dashboardSlice = createSlice({
         setSemester(state, action) {
             state.semester = action.payload
 
-        }
+        },
+        setProfileData(state, action) {
+            
+            state.topProfile.name = action.payload.name;
+            state.topProfile.email = action.payload.name;
+            state.topProfile.profilePic = action.payload.name;
+        },
         
     }
 })

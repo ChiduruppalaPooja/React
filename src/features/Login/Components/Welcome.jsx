@@ -15,7 +15,7 @@ export default function Welcome() {
             marginLeft: '86px',
         }}>
             <Box sx={{
-                color: '#FFF',
+                color: (theme)=>theme.palette.primary.contrastText,
                 fontFamily: typography.fontFamily,
                 fontSize: pxToRem(57.251),
                 fontStyle: 'normal',
@@ -23,7 +23,7 @@ export default function Welcome() {
                 lineHeight: '50.094px',
             }}>Welcome to</Box>
             <Box sx={{
-                color: '#FFF',
+                color: (theme)=>theme.palette.primary.contrastText,
                 fontFamily: typography.fontFamily,
                 fontSize: pxToRem(57.251),
                 fontStyle: 'normal',
@@ -32,7 +32,7 @@ export default function Welcome() {
             }
             }>student portal</Box>
             <Box sx={{
-                color: '#FFF',
+                color: (theme)=>theme.palette.primary.contrastText,
                 fontFamily: typography.fontFamily,
                 fontSize: pxToRem(14),
                 fontStyle: 'normal',

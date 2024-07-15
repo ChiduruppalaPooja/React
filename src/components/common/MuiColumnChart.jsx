@@ -47,7 +47,7 @@ const MuiColumnChart = ({
         fontWeight: 500,
         cssClass: 'apexcharts-xaxis-label',
         colors: series[0].data.map((value) =>
-          value !== 0 ? primaryBarColor : secondaryBarColor
+          value != 0 ? primaryBarColor : secondaryBarColor
         ),
       },
     },

@@ -21,7 +21,7 @@ export default function LabelsTable(){
     return(
         <Stack direction={"row"} justifyContent={'space-between'} alignItems={'center'} sx={{padding: '14px 13px 0 16px'}}>
             <Typography variant="h5"> Assessments</Typography>
-            <Stack direction={"row"}>
+            <Stack direction={"row"} sx={{cursor: 'pointer'}}>
             <LessThanIcon onClick={() => changeSemester('left')}/>
             <Typography variant="caption2" sx={{display: 'flex', alignItems: 'center' ,color: (theme)=>theme.palette.grey[800]}}>Semester 0{semester}</Typography>
             <GreaterThanIcon onClick={() => changeSemester('right')}/>

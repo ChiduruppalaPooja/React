@@ -3,7 +3,7 @@ import typography, { pxToRem } from "../../theme/typography";
 import { Box, InputBase, Stack } from "@mui/material";
 
 
-export default function LoginTextBox({ value, onChange, passwordImg, visibleImg,errorMessage, loginClicked }) {
+export default function LoginTextBox({ value, onChange, passwordImg, visibleImg,errorMessage, loginClicked, autoFocus }) {
     const [passWordVisible, setPasswordVisibility] = useState(true);
     function handlePasswordVisibility() {
         setPasswordVisibility(!passWordVisible);
@@ -29,7 +29,7 @@ export default function LoginTextBox({ value, onChange, passwordImg, visibleImg,
                         type={passwordImg && passWordVisible ? 'password' : 'text'}
                         onChange={onChange}
                        
-                        autoFocus
+                        autoFocus={autoFocus}
                         sx={{
                             color: (theme)=>theme.palette.grey[500],
                             fontFamily: "Poppins",
