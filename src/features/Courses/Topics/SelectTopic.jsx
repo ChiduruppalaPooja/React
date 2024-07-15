@@ -1,12 +1,11 @@
 import { Box, Stack, Typography } from "@mui/material";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Materials from "./Materials"; 
 import Accordion from '@mui/material/Accordion';
 import AccordionSummary from '@mui/material/AccordionSummary';
 import AccordionDetails from '@mui/material/AccordionDetails';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import Divider from "../../../assets/Divider";
-import { useEffect } from "react";
 
 export default function SelectTopic({ topicName, materials , searchText}) {
     const [showMaterials, setShowMaterials] = useState(false);
@@ -14,16 +13,26 @@ export default function SelectTopic({ topicName, materials , searchText}) {
     const handleToggle = () => {
         setShowMaterials(!showMaterials);
     };
+
+    let filteredMaterials = materials;
+
+    if (searchText) {
+        if (topicName.toLowerCase().includes(searchText.toLowerCase())) {
+            filteredMaterials = materials;
+        } else {
+            filteredMaterials = materials.filter(material => 
+                material.name.toLowerCase().includes(searchText.toLowerCase())
+            );
+        }
+    }
+
     useEffect(() => {
         if (searchText && filteredMaterials.length > 0) {
             setShowMaterials(true);
         } else if (!searchText) {
             setShowMaterials(false);
         }
-    }, [searchText, materials]);
-    const filteredMaterials = materials.filter(material => 
-        material.name.toLowerCase().includes(searchText.toLowerCase())
-    );
+    }, [searchText, filteredMaterials]);
     return (
         <Stack direction="column" sx={{ position: 'relative', marginLeft: '56px', width: '506px', textAlign: 'left' }}>
             <Accordion
@@ -49,7 +58,6 @@ export default function SelectTopic({ topicName, materials , searchText}) {
                         '& .MuiAccordionSummary-content': {
                             justifyContent: 'flex-start', 
                         }
-                        
                     }}
                     onClick={handleToggle}
                 >

@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { Stack, Skeleton, Box } from "@mui/material";
+import { Stack } from "@mui/material";
 import MainDashboard from "../../features/Dashboard/Components/MainDashboard";
 import SideBar from "../../components/common/SideBar";
 import { useDispatch } from "react-redux";
@@ -12,13 +12,23 @@ export default function Dashboard() {
     const { data: dashboardData, loading: dashboardLoading, error: dashboardError } = useFetch('https://stagingstudentpython.edwisely.com/reactProject/dashboardData');
     const { data: assessmentsData, loading: assessmentsLoading, error: assessmentsError } = useFetch('https://stagingstudentpython.edwisely.com/reactProject/assessments');
 
+    const fetchAssessmentsData = async () => {
+        try {
+            const response = await fetch('https://stagingstudentpython.edwisely.com/reactProject/assessments');
+            const data = await response.json();
+            dispatch(dashboardSliceActions.setAssessmentsData(data));
+        } catch (error) {
+            console.error("Error fetching data:", error);
+        }
+    };
+
     useEffect(() => {
         const fetchData = async () => {
             try {
                 if (dashboardData) {
                     dispatch(dashboardSliceActions.setDashBoardData(dashboardData));
                     localStorage.setItem("dashboardData", JSON.stringify(dashboardData));   
-                                     window.scrollTo({
+                    window.scrollTo({
                         top: 0,
                         left: 0,
                         behavior: 'smooth'
@@ -48,12 +58,10 @@ export default function Dashboard() {
         );
     }
 
-
-
     return (
         <Stack direction={"row"} sx={{ width: '100%', background: (theme) => theme.palette.primary.contrastText }}>
             {/* <SideBar /> */}
-            <MainDashboard />
+            <MainDashboard fetchAssessmentsData={fetchAssessmentsData} />
         </Stack>
     );
 }

@@ -5,13 +5,13 @@ import Content from "./Analytics/Content";
 import AssessmentsDashboard from "./RecentAssessments/AssessmentsDashboard";
 import Courses from "./Courses/Courses";
 
-export default function MainDashboard() {
+export default function MainDashboard({fetchAssessmentsData}) {
     return (
        
             <Stack direction="column" sx={{background: (theme)=> theme.palette.primary.contrastText, marginLeft: '80px' }}>
                 {/* <TopNavigation icon={<span role="img" aria-label="wave">👋</span>}/> */}
                 <Content />
-               <AssessmentsDashboard />
+               <AssessmentsDashboard fetchAssessmentsData={fetchAssessmentsData}/>
                <Courses />
             </Stack>
        

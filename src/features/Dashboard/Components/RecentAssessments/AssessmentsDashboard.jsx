@@ -5,8 +5,10 @@ import Calendar from "../Calender/Calender";
 import LeaderBoard from "../LeaderBoard/LeaderBoard";
 import User from "../User/User";
 import TableAssessments from "./TableAssessments";
+import LeftGridSkeleton from "../../../../components/common/LeftGridSkeleton";
+import RightGridSkeleton from "../../../../components/common/RightGridSkeleton";
 
-export default function AssessmentsDashboard() {
+export default function AssessmentsDashboard({ fetchAssessmentsData }) {
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
@@ -14,41 +16,34 @@ export default function AssessmentsDashboard() {
         return () => clearTimeout(timer);
     }, []);
 
-    const renderLeftColumnSkeletons = () => (
-        <Stack direction="column" className="midblockLeft" spacing={2}>
-            <Skeleton variant="rectangular" width="100%" height={200} />
-            <Skeleton variant="rectangular" width="100%" height={300} />
-        </Stack>
-    );
 
-    const renderRightColumnSkeletons = () => (
-        <Stack direction="column" className="midblockRight" justifyContent={'space-between'} spacing={2}>
-            <Skeleton variant="rectangular" width="100%" height={150} />
-            <Skeleton variant="rectangular" width="100%" height={300} />
-            <Skeleton variant="rectangular" width="100%" height={200} />
-        </Stack>
-    );
+
+
 
     return (
         <Grid container justifyContent="space-between" className="midblock" sx={{ paddingLeft: '20px', paddingRight: '20px' }}>
             {/* Left column */}
             <Grid item xs={12} md={9} order={{ xs: 2, md: 1 }} sx={{ paddingRight: { xs: '0px', md: '22px' } }}>
-                {loading ? renderLeftColumnSkeletons() : (
+                {!loading ? (
                     <Stack direction="column" className="midblockLeft" spacing={2}>
                         <PerformanceGraph />
-                        <TableAssessments />
+                        <TableAssessments fetchAssessmentsData={fetchAssessmentsData} />
                     </Stack>
+                ) : (
+                    <LeftGridSkeleton />
                 )}
             </Grid>
 
             {/* Right column */}
             <Grid item xs={12} md={3} order={{ xs: 1, md: 2 }}>
-                {loading ? renderRightColumnSkeletons() : (
+                {!loading ? (
                     <Stack direction="column" className="midblockRight" justifyContent={'space-between'} spacing={2}>
                         <User />
                         <Calendar />
                         <LeaderBoard displayLimit={6} />
                     </Stack>
+                ) : (
+                    <RightGridSkeleton />
                 )}
             </Grid>
         </Grid>

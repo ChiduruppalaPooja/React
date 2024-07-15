@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Stack, Box, Typography, Button, IconButton, Grid } from "@mui/material";
+import { Stack, Box, Typography, Button, IconButton, Grid, Skeleton } from "@mui/material";
 import ArrowLeftIcon from "../../assets/ArrowLeft";
 import { Document, Page, pdfjs } from "react-pdf";
 import { useNavigate } from "react-router";
@@ -7,12 +7,15 @@ import ZoomOut from "../../assets/ZoomOut";
 import ZoomIn from "../../assets/ZoomIn";
 import RotateLeft from "../../assets/RotateLeft";
 import PresentationIcon from "../../assets/PresentationIcon";
+import ChevronLeft from "../../assets/ChevronLeft";
+import ChevronRight from "../../assets/ChevronRight";
+
 pdfjs.GlobalWorkerOptions.workerSrc = `//cdnjs.cloudflare.com/ajax/libs/pdf.js/${pdfjs.version}/pdf.worker.js`;
 
 export default function PdfPage({ pdfTitle, pdfUrl }) {
     const navigate = useNavigate();
     const [pageNumbers, setPageNumbers] = useState([]);
-    const [fullScreen, setFullScreen] = useState(false); 
+    const [fullScreen, setFullScreen] = useState(false);
 
     const handleBackClick = () => {
         navigate(-1);
@@ -82,23 +85,29 @@ export default function PdfPage({ pdfTitle, pdfUrl }) {
                     </Box>
                     <Typography variant="body5">{pdfTitle}</Typography>
                 </Stack>
-                <Stack direction={'row'} gap={'8px'} sx={{ maxHeight: '24px'}}>
+                <Stack direction={'row'} gap={'8px'} sx={{ maxHeight: '24px' }}>
                     <Stack direction={'row'} gap={'8px'} alignItems={'center'} className="pagenumber" sx={{ padding: '0 24px 0 24px' }}>
-                        <Typography variant="body2" sx={{ width: '20px', background: (theme)=>theme.palette.grey[200], color: (theme)=>theme.palette.grey[800]}}>{pageNumber}</Typography>
-                        <Typography variant="caption2" sx={{width: '20px', color: (theme)=>theme.palette.grey[800]}}>/</Typography>
-                        <Typography variant="caption2" sx={{ width: '20px', color: (theme)=>theme.palette.grey[800]}}>{numPages}</Typography>
+                        <IconButton onClick={handlePrevPage} disabled={pageNumber <= 1}>
+                            <ChevronLeft />
+                        </IconButton>
+                        <Typography variant="body2" sx={{ width: '20px', background: (theme) => theme.palette.grey[200], color: (theme) => theme.palette.grey[800] }}>{pageNumber}</Typography>
+                        <Typography variant="caption2" sx={{ width: '20px', color: (theme) => theme.palette.grey[800] }}>/</Typography>
+                        <Typography variant="caption2" sx={{ width: '20px', color: (theme) => theme.palette.grey[800] }}>{numPages}</Typography>
+                        <IconButton onClick={handleNextPage} disabled={pageNumber >= numPages}>
+                            <ChevronRight />
+                        </IconButton>
                     </Stack>
-                    <Box className='divider' sx={{width: '1px', background: '#BDBDC7'}}></Box>
+                    <Box className='divider' sx={{ width: '1px', background: '#BDBDC7' }}></Box>
                     <Stack direction={'row'} gap={'16px'} className="zoom" sx={{ padding: '0 24px 0 24px' }}>
                         <IconButton onClick={handleZoomOut} >
-                            <ZoomOut  />
+                            <ZoomOut />
                         </IconButton>
-                        <Typography variant="body2" sx={{ background: (theme)=>theme.palette.grey[200], color: (theme)=>theme.palette.grey[800], padding: '8px 7px', display: 'flex', alignItems: 'center' }}>{Math.round(scale * 100)}%</Typography>
+                        <Typography variant="body2" sx={{ background: (theme) => theme.palette.grey[200], color: (theme) => theme.palette.grey[800], padding: '8px 7px', display: 'flex', alignItems: 'center' }}>{Math.round(scale * 100)}%</Typography>
                         <IconButton onClick={handleZoomIn} >
                             <ZoomIn />
                         </IconButton>
                     </Stack>
-                    <Box className='divider' sx={{width: '1px', background: '#BDBDC7'}}></Box>
+                    <Box className='divider' sx={{ width: '1px', background: '#BDBDC7' }}></Box>
                     <Stack direction={'row'} gap={'16px'} className="rotate" sx={{ padding: '0 24px 0 24px' }}>
                         <IconButton onClick={toggleFullScreen}>
                             <PresentationIcon />
@@ -116,7 +125,7 @@ export default function PdfPage({ pdfTitle, pdfUrl }) {
                     </IconButton>
                     <Grid container justifyContent="center" alignItems="center" spacing={2} sx={{ height: '100%' }}>
                         <Grid item xs={10} display="flex" justifyContent="center" alignItems="center" sx={{ marginTop: '21px' }}>
-                            {pdfUrl && (
+                            {pdfUrl ? (
                                 <Document
                                     file={pdfUrl}
                                     onLoadSuccess={onDocumentLoadSuccess}
@@ -130,19 +139,22 @@ export default function PdfPage({ pdfTitle, pdfUrl }) {
                                         width={415.511}
                                         height={588}
                                         className="pdf-page"
-                                        renderTextLayer={false} 
-                                        renderAnnotationLayer={false} 
+                                        renderTextLayer={false}
+                                        renderAnnotationLayer={false}
                                         customTextRenderer={({ str }) => (
                                             <div style={{ fontFamily: 'Arial', fontSize: '12px' }}>{str}</div>
                                         )}
                                     />
                                 </Document>
+                            ) : (
+                                <Skeleton variant="rounded" width={415.511} height={588} />
+
                             )}
                         </Grid>
                     </Grid>
                 </Box>
             ) : (
-                <Grid container justifyContent="center"  spacing={2} >
+                <Grid container justifyContent="center" spacing={2} >
                     <Grid item xs={10} display="flex" justifyContent="center" alignItems="center" sx={{ marginTop: '21px' }}>
                         {pdfUrl && (
                             <Document
@@ -158,8 +170,8 @@ export default function PdfPage({ pdfTitle, pdfUrl }) {
                                     width={415.511}
                                     height={588}
                                     className="pdf-page"
-                                    renderTextLayer={false} 
-                                    renderAnnotationLayer={false} 
+                                    renderTextLayer={false}
+                                    renderAnnotationLayer={false}
                                     customTextRenderer={({ str }) => (
                                         <div style={{ fontFamily: 'Arial', fontSize: '12px' }}>{str}</div>
                                     )}
@@ -168,9 +180,9 @@ export default function PdfPage({ pdfTitle, pdfUrl }) {
                         )}
                     </Grid>
                     <Grid item xs={2} sx={{ maxHeight: 'calc(100vh - 128px)', overflowY: 'auto', '&::-webkit-scrollbar': { display: 'none' } }}>
-                        {pageNumbers.map((page, index) => (
+                        {pageNumbers ? (pageNumbers.map((page, index) => (
                             <Stack direction={"column"} gap={'9px'} justifyContent={"center"} alignItems={'center'} >
-                                <Box key={`page-thumbnail-${index}`} onClick={() => handleThumbnailClick(page)}  sx={{ cursor: 'pointer', border: page === pageNumber ? '4px solid #9EBDFA' : 'none', '&:hover': { border: '4px solid #9EBDFA' } }}>
+                                <Box key={`page-thumbnail-${index}`} onClick={() => handleThumbnailClick(page)} sx={{ cursor: 'pointer', border: page === pageNumber ? '4px solid #9EBDFA' : 'none', '&:hover': { border: '4px solid #9EBDFA' } }}>
                                     <Document
                                         file={pdfUrl}
                                     >
@@ -180,19 +192,23 @@ export default function PdfPage({ pdfTitle, pdfUrl }) {
                                             width={115}
                                             height={117}
                                             className="pdf-page"
-                                            renderTextLayer={false} 
-                                            renderAnnotationLayer={false} 
+                                            renderTextLayer={false}
+                                            renderAnnotationLayer={false}
                                             customTextRenderer={({ str }) => (
                                                 <div style={{ fontFamily: 'Arial', fontSize: '12px' }}>{str}</div>
                                             )}
                                         />
                                     </Document>
                                 </Box>
-                                <Typography variant="caption1" sx={{ marginTop: '4px', textAlign: 'center', color: (theme)=>theme.palette.common.black }}>
+                                <Typography variant="caption1" sx={{ marginTop: '4px', textAlign: 'center', color: (theme) => theme.palette.common.black }}>
                                     {page}
                                 </Typography>
                             </Stack>
-                        ))}
+                        ))) : (
+                            <Skeleton variant="rounded" width={115} height={117} />
+
+                        )
+                        }
                     </Grid>
                 </Grid>
             )}

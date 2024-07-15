@@ -22,7 +22,7 @@ export default function ContinueReading(){
                         file_name={data.file_name}
                         
                     />
-                ))}
+                )) }
             </Stack>
         </Stack>
     );

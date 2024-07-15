@@ -5,7 +5,7 @@ import MuiCustomTableWithSortandSelect from '../../../../components/common/MuiCu
 import { useSelector } from 'react-redux';
 import ErrorMark from "../../../../assets/ErrorMark.jsx"
 
-export default function TableAssessments() {
+export default function TableAssessments({fetchAssessmentsData}) {
   const assessments = useSelector((state) => state.dashboard.assessmentsData.assessments);
   const semester = useSelector((state) => state.dashboard.semester);
 
@@ -64,7 +64,7 @@ export default function TableAssessments() {
     setCurrentPage(1);
     let updatedSubmissionTypes;
     if (id === 5) {
-      updatedSubmissionTypes = [1, 2, 3];
+      updatedSubmissionTypes = [1,2,3,4];
     } else {
       updatedSubmissionTypes = [id];
     }
@@ -82,9 +82,7 @@ export default function TableAssessments() {
     setCurrentPage(page);
   };
 
-  function handleReload() {
-    window.location.reload();
-  }
+ 
 
   return (
     <Stack
@@ -126,7 +124,7 @@ export default function TableAssessments() {
         >
           <ErrorMark />
           <Typography variant='h2' color={(theme) => theme.palette.grey[400]}>Error Loading Assessment</Typography>
-          <Link variant='h5' onClick={handleReload} sx={{ cursor: 'pointer' }}>Reload</Link>
+          <Link variant='h5' onClick={fetchAssessmentsData} sx={{ cursor: 'pointer' }}>Reload</Link>
         </Box>
       }
     </Stack>
